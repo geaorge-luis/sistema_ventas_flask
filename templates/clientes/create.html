@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %} CLIENTES | CREATE {% endblock %}
+
+
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, msg in messages %}
+      <div class="alert alert-{{ category }}">{{ msg }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<form method="post" action="{{ url_for('cliente.create') }}">
+    <div class="mb-3">
+        <label for="" class="form-label">Nombre</label>
+        <input type="text" class="form-control" name ="nombre" required>
+
+    </div>
+      <div class="mb-3">
+        <label for="" class="form-label">correo electronico </label>
+        <input type="email" class="form-control" name="email" required>
+
+    </div>
+  <div class="mb-3">
+        <label for="" class="form-label">telefono </label>
+        <input type="number" class="form-control" name ="telefono" required>
+
+    </div>
+<button type="submit" class="btn btn-primary">Registrar cliente</button>
+
+
+</form>
+
+
+{% endblock %}

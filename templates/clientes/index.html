@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %} Clientes {% endblock %}
+
+{% block content %}
+	<div class="d-flex justify-content-between align-items-center mb-3">
+	<h1 class="h4 mb-0">Lista de Clientes</h1>
+	<a href="{{ url_for('cliente.new') }}" class="btn btn-primary">Nuevo</a>
+	</div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Nombre</th>
+			<th>Email</th>
+			<th>Telefono</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in clientes %}
+		<tr>
+			<td>{{ item.id }}</td>
+			<td>{{ item.nombre }}</td>        {# usa el nombre real del campo, p. ej. usuario.name #}
+			<td>{{ item.email}}</td>     {# ajusta si tu campo se llama differently #}
+			<td>{{ item.telefono}}</td>
+			<td>
+				<a href="{{ url_for('cliente.edit', id=item.id) }}" class=
+                "btn btn-sm btn-secondary">Editar</a>
+            </td>
+            <td>  
+				<a href="{{ url_for('cliente.delete', id=item.id) }}" class="btn btn-sm btn-danger">Borrar</a>
+			</td>
+		</tr>
+		{% else %}
+		<tr><td colspan="5">No hay usuarios</td></tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

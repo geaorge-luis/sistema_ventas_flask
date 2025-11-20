@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %} VENTAS | EDIT {% endblock %}
+
+
+{% block content %}
+
+<h1>Actualizacion de venta</h1>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, msg in messages %}
+      <div class="alert alert-{{ category }}">{{ msg }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<form method="post" action="{{ url_for('venta.edit', id=venta.id) }}">
+    <div class="mb-3">
+        <label for="" class="form-label">Cliente</label>
+        <select name="cliente_id" class="form-control" required></select>
+            <option value="">Selecciones un cliente</option>
+            {% for cliente in clientes %}
+                <option value="{{ cliente.id }}"{%if cliente.id == venta.cliente_id %}
+                    selected{% endif %}>{{ cliente.nombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+       <div class="mb-3">
+        <label for="" class="form-label">Producto</label>
+        <select name="producto_id" class="form-control" required></select>
+            <option value="">Selecciones un producto</option>
+            {% for producto in productos %}
+                <option value="{{ producto.id }}" {% if producto_id == venta.producto_id %}select {% endif %}>{{ producto.descripcion }}</option>
+            {% endfor %}
+        </select>
+  <div class="mb-3">
+        <label for="" class="form-label">Cantidad </label>
+        <input type="number" class="form-control" name ="cantidad" value="{{venta.cantidad}}" required>
+
+    </div>
+      <div class="mb-3">
+        <label for="" class="form-label">Fecha </label>
+        <input type="date" class="form-control" name ="fecha" value="{{venta.fecha.strftime('%Y-%m-%d')}}" required>
+
+    </div>
+<button type="submit" class="btn btn-primary">Actualizar venta</button>
+
+
+</form>
+
+
+{% endblock %}
